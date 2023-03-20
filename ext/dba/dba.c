@@ -425,6 +425,10 @@ static void php_dba_update(INTERNAL_FUNCTION_PARAMETERS, int mode)
 		}
 	}
 
+	if(mode && info->hnd->exists(info, key_str) == SUCCESS){
+		RETURN_FALSE;
+	}
+
 	RETVAL_BOOL(info->hnd->update(info, key_str, value, mode) == SUCCESS);
 	DBA_RELEASE_HT_KEY_CREATION();
 }
